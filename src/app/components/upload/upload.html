@@ -1,0 +1,74 @@
+<div class="user-info-form">
+  <form [formGroup]="userInfoForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome *</mat-label>
+      <input matInput formControlName="name" placeholder="Digite seu nome">
+      <mat-error *ngIf="userInfoForm.get('name')?.errors?.['required']">
+        Nome é obrigatório
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" placeholder="Digite seu telefone">
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-card class="upload-card" (click)="isUploading || isPostUpload ? null : fileSelector.click()" [class.disabled]="isUploading || isPostUpload">
+  <h2>Upload de Arquivos</h2>
+
+  <ngx-file-drop (onFileDrop)="onFileDropped($event)" [disabled]="isUploading || isPostUpload">
+    <div ngx-file-drop-content [class.disabled-content]="isUploading || isPostUpload">
+      <p>Arraste e solte seus arquivos aqui</p>
+      <p>ou clique para selecionar</p>
+      <p class="file-type-hint">Somente fotos e vídeos são aceitos</p>
+      <p *ngIf="isUploading || isPostUpload" class="status-message">
+        <span *ngIf="isUploading">Enviando arquivos...</span>
+        <span *ngIf="isPostUpload">Concluindo operação...</span>
+      </p>
+    </div>
+  </ngx-file-drop>
+
+  <!-- Specify accept attribute for file input to filter by file type -->
+  <input type="file" #fileSelector (change)="onFilesSelected($event)" 
+         accept="image/*,video/*" multiple hidden 
+         [attr.disabled]="(isUploading || isPostUpload) ? '' : null">
+</mat-card>
+
+<!-- Botões abaixo do card -->
+<div class="action-buttons" *ngIf="uploadedFiles.length > 0">
+  <button mat-raised-button color="warn" (click)="clearAll()" [disabled]="isUploading || isPostUpload">Limpar Todos</button>
+  <button mat-raised-button color="primary" (click)="sendFiles()" [disabled]="isUploading || isPostUpload">
+    <mat-spinner diameter="20" *ngIf="isUploading"></mat-spinner>
+    <span *ngIf="!isUploading">Enviar para Firebase</span>
+    <span *ngIf="isUploading">Enviando...</span>
+  </button>
+  <button mat-raised-button color="accent" (click)="testUpload()" [disabled]="isUploading || isPostUpload">
+    Testar Upload
+  </button>
+</div>
+
+<!-- Cards com preview -->
+<div class="preview-container">
+  <mat-card class="preview-card" *ngFor="let file of uploadedFiles; let i = index" [class.disabled]="isUploading || isPostUpload">
+    <h3>{{ file.name }}</h3>
+    
+    <!-- Status indicator -->
+    <div class="status-indicator">
+      <mat-icon *ngIf="file.firebaseUrl" color="primary">cloud_done</mat-icon>
+      <mat-icon *ngIf="!file.firebaseUrl">cloud_upload</mat-icon>
+      <mat-spinner diameter="20" *ngIf="isUploading && !file.firebaseUrl"></mat-spinner>
+    </div>
+
+    <ng-container [ngSwitch]="true">
+      <img *ngSwitchCase="file.type.startsWith('image/')" [src]="file.url" alt="{{file.name}}" />
+      <video *ngSwitchCase="file.type.startsWith('video/')" [src]="file.url" controls></video>
+      <p *ngSwitchDefault>Pré-visualização não disponível</p>
+    </ng-container>
+
+    <button mat-icon-button color="warn" (click)="removeFile(i)" [disabled]="isUploading || isPostUpload">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card>
+</div>
