@@ -1,1 +1,16 @@
-<app-upload></app-upload>
+<div class="container">
+  <header class="app-header">
+    <h1>Upload de Fotos e Vídeos do Casamento</h1>
+  </header>
+
+  <mat-divider></mat-divider>
+
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+    <mat-tab label="Enviar">
+      <app-upload (uploadComplete)="onUploadComplete($event)"></app-upload>
+    </mat-tab>
+    <mat-tab label="Feed">
+      <app-feed></app-feed>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.app-header {
+  text-align: center;
+  padding: 20px 0;
+  
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #3f51b5;
+  }
+}
+
+mat-divider {
+  margin-bottom: 20px;
+}

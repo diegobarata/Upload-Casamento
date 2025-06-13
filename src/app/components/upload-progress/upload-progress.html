@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>
+  <ng-container *ngIf="!data.success && !data.error">Upload em progresso</ng-container>
+  <ng-container *ngIf="data.success">Upload concluído!</ng-container>
+  <ng-container *ngIf="data.error">Erro no upload</ng-container>
+</h2>
+
+<mat-dialog-content>
+  <div class="progress-container">
+    <div class="progress-status">
+      <ng-container *ngIf="!data.success && !data.error">
+        <p>Por favor, aguarde enquanto seus arquivos são enviados...</p>
+      </ng-container>
+      <ng-container *ngIf="data.success">
+        <mat-icon class="success-icon">check_circle</mat-icon>
+        <p>Seus arquivos foram enviados com sucesso!</p>
+      </ng-container>
+      <ng-container *ngIf="data.error">
+        <mat-icon class="error-icon">error</mat-icon>
+        <p>Ocorreu um erro ao enviar alguns arquivos.</p>
+      </ng-container>
+    </div>
+
+    <div class="progress-count">
+      <span>{{data.completedFiles}} / {{data.totalFiles}}</span>
+    </div>
+
+    <mat-progress-bar 
+      mode="determinate" 
+      [value]="getProgressPercentage()"
+      [color]="data.error ? 'warn' : 'primary'">
+    </mat-progress-bar>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button 
+    mat-button 
+    [disabled]="!data.success && !data.error && data.completedFiles < data.totalFiles" 
+    (click)="close()">
+    Fechar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,40 @@
+.progress-container {
+  min-width: 300px;
+  padding: 10px 0;
+}
+
+.progress-status {
+  margin-bottom: 20px;
+  text-align: center;
+  
+  p {
+    margin: 10px 0;
+  }
+  
+  .success-icon, .error-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: 10px;
+  }
+  
+  .success-icon {
+    color: #4caf50;
+  }
+  
+  .error-icon {
+    color: #f44336;
+  }
+}
+
+.progress-count {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+mat-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+}

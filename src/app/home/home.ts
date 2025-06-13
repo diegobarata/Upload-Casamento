@@ -1,11 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Feed } from '../components/feed/feed';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-home',
-  standalone: false,
   templateUrl: './home.html',
-  styleUrl: './home.scss'
+  styleUrls: ['./home.scss'],
+  standalone: false,
 })
 export class Home {
+  @ViewChild(Feed) feedComponent!: Feed;
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
+  constructor() {}
+
+  /**
+   * Handle upload complete event from upload component
+   */
+  onUploadComplete(success: boolean): void {
+    if (success) {
+      // Switch to the feed tab
+      setTimeout(() => {
+        if (this.tabGroup) {
+          this.tabGroup.selectedIndex = 1;
+
+          // Refresh the feed
+          setTimeout(() => {
+            if (this.feedComponent) {
+              this.feedComponent.loadFeedItems();
+            }
+          }, 500);
+        }
+      }, 1000);
+    }
+  }
 }

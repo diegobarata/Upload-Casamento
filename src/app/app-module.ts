@@ -3,6 +3,8 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { App } from './app';
 import { Upload } from './components/upload/upload';
 import { Home } from './home/home';
+import { Feed } from './components/feed/feed';
+import { UploadProgress } from './components/upload-progress/upload-progress';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -14,8 +16,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FirebaseService } from './services/firebase.service';
 import { UserService } from './services/user.service';
@@ -25,6 +31,8 @@ import { UserService } from './services/user.service';
     App,
     Upload,
     Home,
+    Feed,
+    UploadProgress
   ],
   imports: [
     BrowserModule,
@@ -37,9 +45,13 @@ import { UserService } from './services/user.service';
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDividerModule,
+    MatTabsModule,
+    MatDialogModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

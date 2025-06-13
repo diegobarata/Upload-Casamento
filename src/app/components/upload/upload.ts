@@ -1,8 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
 import { FirebaseService } from '../../services/firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UploadProgress, UploadProgressData } from '../upload-progress/upload-progress';
 
 // Keep the existing interface without user-related fields
 interface UploadedFile {
@@ -28,15 +30,20 @@ export class Upload {
 
   @ViewChild('fileSelector') fileSelector!: ElementRef<HTMLInputElement>;
 
+  // Add event emitter to notify about new uploads
+  @Output() uploadComplete = new EventEmitter<boolean>();
+
+  private dialogRef: MatDialogRef<UploadProgress> | null = null;
+  
   constructor(
     private firebaseService: FirebaseService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
-    // Initialize form with validation
+    // Initialize form with validation - remove phone field
     this.userInfoForm = this.fb.group({
-      name: ['', Validators.required],
-      phone: ['']
+      name: ['', Validators.required]
     });
   }
 
@@ -221,11 +228,27 @@ export class Upload {
     // Disable form controls programmatically
     this.userInfoForm.disable();
     
+    // Open progress dialog
+    const progressData: UploadProgressData = {
+      totalFiles: this.uploadedFiles.length,
+      completedFiles: 0,
+      success: false,
+      error: false
+    };
+    
+    this.dialogRef = this.dialog.open(UploadProgress, {
+      data: progressData,
+      disableClose: true
+    });
+    
     let successCount = 0;
     let errorCount = 0;
     
     try {
-      // Process each file using EXACTLY the same approach as testUpload
+      // Get the user name from the form
+      const userName = this.userInfoForm.get('name')?.value || 'Anonymous';
+      
+      // Process each file
       for (let i = 0; i < this.uploadedFiles.length; i++) {
         const fileData = this.uploadedFiles[i];
         const file = fileData._file;
@@ -233,6 +256,9 @@ export class Upload {
         if (!file) {
           console.error('File object missing for:', fileData.name);
           errorCount++;
+          progressData.completedFiles++;
+          // Update dialog data
+          this.updateProgressDialog(progressData);
           continue;
         }
         
@@ -240,6 +266,9 @@ export class Upload {
         if (fileData.firebaseUrl) {
           console.log(`File ${fileData.name} already uploaded`);
           successCount++;
+          progressData.completedFiles++;
+          // Update dialog data
+          this.updateProgressDialog(progressData);
           continue;
         }
         
@@ -247,8 +276,8 @@ export class Upload {
           // Log the attempt
           console.log(`Uploading file ${i+1}/${this.uploadedFiles.length}:`, file.name);
           
-          // Use direct upload with no additional parameters - EXACTLY like testUpload
-          const firebaseUrl = await this.firebaseService.uploadFile(file);
+          // Pass the user name to the upload method
+          const firebaseUrl = await this.firebaseService.uploadFile(file, userName);
           
           // Log success
           console.log(`Successfully uploaded: ${file.name} to ${firebaseUrl}`);
@@ -263,11 +292,20 @@ export class Upload {
         } catch (uploadError) {
           console.error(`Failed to upload ${fileData.name}:`, uploadError);
           errorCount++;
+        } finally {
+          // Update progress count regardless of success/failure
+          progressData.completedFiles++;
+          // Update dialog data
+          this.updateProgressDialog(progressData);
         }
       }
       
       // Handle results
       if (errorCount === 0 && successCount > 0) {
+        // Update dialog to show success
+        progressData.success = true;
+        this.updateProgressDialog(progressData);
+        
         // Success message
         this.snackBar.open(
           `Upload concluído com sucesso! ${successCount} ${successCount === 1 ? 'arquivo enviado' : 'arquivos enviados'}.`,
@@ -281,8 +319,16 @@ export class Upload {
         // Clear files after success - wait 5 seconds
         setTimeout(() => {
           this.clearFilesOnly();
+          if (this.dialogRef) {
+            this.dialogRef.close();
+            this.dialogRef = null;
+          }
         }, 5000);
       } else if (successCount > 0) {
+        // Update dialog to show partial error
+        progressData.error = true;
+        this.updateProgressDialog(progressData);
+        
         // Partial success
         this.snackBar.open(
           `Upload parcial: ${successCount} ok, ${errorCount} com erro.`,
@@ -293,6 +339,10 @@ export class Upload {
         // Re-enable form
         this.userInfoForm.enable();
       } else {
+        // Update dialog to show error
+        progressData.error = true;
+        this.updateProgressDialog(progressData);
+        
         // Complete failure
         this.snackBar.open(
           'Falha no upload. Tente novamente.',
@@ -304,6 +354,10 @@ export class Upload {
         this.userInfoForm.enable();
       }
     } catch (error) {
+      // Update dialog to show error
+      progressData.error = true;
+      this.updateProgressDialog(progressData);
+      
       console.error('Upload process error:', error);
       this.snackBar.open(
         'Erro ao processar o upload.',
@@ -315,6 +369,15 @@ export class Upload {
       this.userInfoForm.enable();
     } finally {
       this.isUploading = false;
+    }
+  }
+  
+  /**
+   * Update the progress dialog with current state
+   */
+  private updateProgressDialog(progressData: UploadProgressData): void {
+    if (this.dialogRef) {
+      this.dialogRef.componentInstance.data = { ...progressData };
     }
   }
   

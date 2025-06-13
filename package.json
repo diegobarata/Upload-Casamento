@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production --budget-config=budget.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:teste-upload": "node dist/teste-upload/server/server.mjs"
