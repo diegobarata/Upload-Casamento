@@ -1,6 +1,11 @@
+:host {
+  background-color: #fff;
+}
+
 .progress-container {
   min-width: 300px;
   padding: 10px 0;
+  background-color: #fff;
 }
 
 .progress-status {
@@ -9,6 +14,7 @@
   
   p {
     margin: 10px 0;
+    color: var(--text-on-light);
   }
   
   .success-icon, .error-icon {
@@ -19,7 +25,7 @@
   }
   
   .success-icon {
-    color: #4caf50;
+    color: var(--success-color);
   }
   
   .error-icon {
@@ -37,4 +43,21 @@
 mat-progress-bar {
   height: 8px;
   border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .progress-container {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .progress-status {
+    margin-bottom: 15px;
+    
+    .success-icon, .error-icon {
+      font-size: 36px;
+      height: 36px;
+      width: 36px;
+    }
+  }
 }

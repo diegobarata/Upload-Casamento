@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService, UploadedFileInfo } from '../../services/firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { GalleryDialog } from './gallery-dialog';
 
 interface FeedItem {
   name: string;
@@ -25,10 +27,12 @@ export class Feed implements OnInit {
   public feedGroups: FeedGroup[] = [];
   public isLoading = false;
   public error: string | null = null;
+  public carouselIndexes: { [userName: string]: number } = {};
 
   constructor(
     private firebaseService: FirebaseService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -79,11 +83,6 @@ export class Feed implements OnInit {
     } catch (error) {
       console.error('Error loading feed items:', error);
       this.error = 'Não foi possível carregar os itens do feed.';
-      this.snackBar.open(
-        'Erro ao carregar os itens do feed.',
-        'Fechar',
-        { duration: 5000, panelClass: ['error-snackbar'] }
-      );
     } finally {
       this.isLoading = false;
     }
@@ -99,5 +98,41 @@ export class Feed implements OnInit {
       { duration: 2000 }
     );
     await this.loadFeedItems();
+  }
+
+  // Carrossel: navegação anterior
+  prevItem(userName: string) {
+    const idx = this.carouselIndexes[userName] ?? 0;
+    const group = this.feedGroups.find(g => g.userName === userName);
+    if (group) {
+      this.carouselIndexes[userName] = (idx - 1 + group.items.length) % group.items.length;
+    }
+  }
+
+  // Carrossel: navegação próxima
+  nextItem(userName: string) {
+    const idx = this.carouselIndexes[userName] ?? 0;
+    const group = this.feedGroups.find(g => g.userName === userName);
+    if (group) {
+      this.carouselIndexes[userName] = (idx + 1) % group.items.length;
+    }
+  }
+
+  // Abrir galeria em popup
+  openGallery(group: FeedGroup) {
+    this.dialog.open(GalleryDialog, {
+      data: { group },
+      width: '90vw',
+      maxWidth: '900px'
+    });
+  }
+
+  // Abrir mídia individual do feed (imagem/vídeo)
+  openMediaFromFeed(item: FeedItem, group: FeedGroup) {
+    this.dialog.open(GalleryDialog, {
+      data: { group, initialItem: item },
+      width: '90vw',
+      maxWidth: '900px'
+    });
   }
 }

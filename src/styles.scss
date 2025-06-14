@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+  height: 100%; 
+  overflow-x: hidden; 
+  margin: 0; 
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 /* Snackbar styles */
 .success-snackbar {
@@ -21,4 +26,135 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-mdc-snack-bar-actions .mdc-button__label {
   color: white;
+}
+
+/* Responsividade Global */
+
+/* Ajustes para telas pequenas */
+@media (max-width: 600px) {
+  .mat-dialog-container {
+    padding: 12px !important;
+  }
+  
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+  
+  button.mat-mdc-button, 
+  button.mat-mdc-raised-button, 
+  button.mat-mdc-stroked-button {
+    min-width: unset;
+    padding: 0 12px;
+  }
+}
+
+/* Para telas muito pequenas */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+// Define a paleta de cores personalizada
+:root {
+  --primary-color: #6e7954;
+  --text-on-dark: #ffffff;
+  --text-on-light: #6e7954;
+  --accent-color: #88956c;
+  --warn-color: #a35738;
+  --success-color: #5a7945;
+  --background-color: #f4f3f6;
+  --card-bg: #ffffff;
+}
+
+// Estilos globais
+body {
+  color: var(--text-on-light);
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+}
+
+// Sobrescrever cores do Angular Material
+.mat-mdc-tab-group, .mat-mdc-card {
+  color: var(--text-on-light);
+}
+
+.mat-toolbar.mat-primary {
+  background-color: var(--primary-color);
+  color: var(--text-on-dark);
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--primary-color);
+}
+
+.mat-mdc-raised-button.mat-accent {
+  background-color: var(--accent-color);
+}
+
+.mat-mdc-raised-button.mat-warn {
+  background-color: var(--warn-color);
+}
+
+.mat-mdc-tab .mat-mdc-tab-label-content {
+  color: var(--text-on-light);
+}
+
+.mat-mdc-tab-group.mat-primary .mat-mdc-tab-label.mdc-tab--active .mdc-tab__text-label {
+  color: var(--primary-color);
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: var(--primary-color);
+}
+
+.mat-mdc-progress-bar.mat-primary .mdc-linear-progress__bar-inner {
+  border-color: var(--primary-color);
+}
+
+// Estilos para os snackbars
+.success-snackbar {
+  background-color: var(--success-color);
+}
+
+.warning-snackbar {
+  background-color: var(--warn-color);
+}
+
+.error-snackbar {
+  background-color: #f44336;
+}
+
+// Estilos globais para campos de formulário
+.mat-mdc-form-field.mat-focused .mat-mdc-input-element {
+  color: var(--primary-color);
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  padding-left: 8px;
+}
+
+.mat-mdc-form-field-icon-prefix {
+  color: var(--primary-color);
+}
+
+// Override Angular Material form field colors
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-input-element {
+  caret-color: var(--primary-color) !important;
 }

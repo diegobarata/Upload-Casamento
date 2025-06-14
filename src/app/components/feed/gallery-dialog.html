@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Galeria de {{data.group.userName}}</h2>
+<mat-dialog-content>
+  <div class="gallery-grid">
+    <ng-container *ngFor="let item of data.group.items">
+      <div class="gallery-item">
+        <div class="img-container">
+          <img *ngIf="item.type.startsWith('image/')" [src]="item.url" [alt]="item.name"
+               (click)="openMedia(item)" class="gallery-thumb" />
+          <video *ngIf="item.type.startsWith('video/')" [src]="item.url" controls
+                 (click)="openMedia(item)" class="gallery-thumb"></video>
+        </div>
+        <div class="gallery-caption">{{item.name}}</div>
+        <div class="gallery-actions">
+          <button mat-icon-button (click)="openMedia(item)" [attr.aria-label]="'Abrir ' + item.name">
+            <mat-icon>open_in_full</mat-icon>
+          </button>
+          <button mat-icon-button (click)="downloadFile(item)" [attr.aria-label]="'Baixar ' + item.name">
+            <mat-icon>download</mat-icon>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+  <!-- Modal para visualização em tela cheia -->
+  <div *ngIf="selectedItem" class="media-modal-backdrop" (click)="closeMedia()">
+    <div class="media-modal" (click)="$event.stopPropagation()">
+      <button mat-icon-button class="close-btn" (click)="closeMedia()" aria-label="Fechar">
+        <mat-icon>close</mat-icon>
+      </button>
+      <img *ngIf="selectedItem.type.startsWith('image/')" [src]="selectedItem.url" [alt]="selectedItem.name" />
+      <video *ngIf="selectedItem.type.startsWith('video/')" [src]="selectedItem.url" controls autoplay playsinline></video>
+      <div class="media-caption">{{selectedItem.name}}</div>
+      <button mat-stroked-button color="primary" (click)="downloadFile(selectedItem)">
+        <mat-icon>download</mat-icon> Baixar
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

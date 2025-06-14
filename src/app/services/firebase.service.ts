@@ -51,7 +51,7 @@ export class FirebaseService {
       // Create storage reference
       const storageRef = ref(this.storage, filePath);
       
-      // Add metadata with timestamp and user name (no phone)
+      // Add metadata with timestamp, user name, and CORS settings
       const metadata = {
         contentType: file.type,
         customMetadata: {

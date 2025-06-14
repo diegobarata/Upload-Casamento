@@ -5,6 +5,7 @@ import { Upload } from './components/upload/upload';
 import { Home } from './home/home';
 import { Feed } from './components/feed/feed';
 import { UploadProgress } from './components/upload-progress/upload-progress';
+import { GalleryDialog } from './components/feed/gallery-dialog';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -32,7 +33,8 @@ import { UserService } from './services/user.service';
     Upload,
     Home,
     Feed,
-    UploadProgress
+    UploadProgress,
+    GalleryDialog
   ],
   imports: [
     BrowserModule,

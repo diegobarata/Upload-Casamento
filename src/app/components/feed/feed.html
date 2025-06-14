@@ -20,30 +20,42 @@
     <p>Envie suas fotos e vídeos para vê-los aqui!</p>
   </div>
 
-  <!-- Group by user -->
   <div *ngFor="let group of feedGroups" class="feed-group">
-    <div class="group-header">
-      <h3>Enviado por: {{group.userName}}</h3>
-      <span class="item-count">{{group.items.length}} {{group.items.length === 1 ? 'item' : 'itens'}}</span>
-    </div>
-    
-    <div class="feed-grid">
-      <mat-card class="feed-item" *ngFor="let item of group.items">
-        <div class="feed-item-content">
-          <ng-container [ngSwitch]="true">
-            <img *ngSwitchCase="item.type.startsWith('image/')" [src]="item.url" [alt]="item.name" />
-            <video *ngSwitchCase="item.type.startsWith('video/')" [src]="item.url" controls></video>
-            <div *ngSwitchDefault class="unsupported-file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <p>Tipo de arquivo não suportado</p>
+    <mat-card class="group-card">
+      <div class="group-header">
+        <h3>Enviado por: {{group.userName}}</h3>
+        <!-- <span class="item-count">{{group.items.length}} {{group.items.length === 1 ? 'item' : 'itens'}}</span> !-->
+      </div>
+      <div class="carousel-container" *ngIf="group.items.length > 0">
+        <button mat-icon-button (click)="prevItem(group.userName)">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="carousel-content">
+          <ng-container *ngIf="group.items.length > 0">
+            <ng-container [ngSwitch]="true">
+              <img *ngSwitchCase="group.items[carouselIndexes[group.userName] || 0].type.startsWith('image/')" [src]="group.items[carouselIndexes[group.userName] || 0].url" [alt]="group.items[carouselIndexes[group.userName] || 0].name" (click)="openMediaFromFeed(group.items[carouselIndexes[group.userName] || 0], group)" class="feed-thumb" />
+              <video *ngSwitchCase="group.items[carouselIndexes[group.userName] || 0].type.startsWith('video/')" [src]="group.items[carouselIndexes[group.userName] || 0].url" controls (click)="openMediaFromFeed(group.items[carouselIndexes[group.userName] || 0], group)" class="feed-thumb"></video>
+              <div *ngSwitchDefault class="unsupported-file">
+                <mat-icon>insert_drive_file</mat-icon>
+                <p>Tipo de arquivo não suportado</p>
+              </div>
+            </ng-container>
+            <div class="carousel-caption">
+              <span class="carousel-index">
+                {{(carouselIndexes[group.userName] || 0) + 1}} / {{group.items.length}}
+              </span>
             </div>
           </ng-container>
         </div>
-        <mat-card-content>
-          <h3>{{item.name}}</h3>
-          <p class="timestamp">{{item.timestamp | date:'dd/MM/yyyy HH:mm'}}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        <button mat-icon-button (click)="nextItem(group.userName)">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+       <div class="group-footer">
+        <button mat-stroked-button color="primary" (click)="openGallery(group)">
+          <mat-icon>collections</mat-icon> Galeria
+        </button>
+      </div>
+    </mat-card>
   </div>
 </div>

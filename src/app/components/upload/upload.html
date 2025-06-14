@@ -1,21 +1,26 @@
 <div class="user-info-form">
   <form [formGroup]="userInfoForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Nome *</mat-label>
-      <input matInput formControlName="name" placeholder="Digite seu nome">
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>Nome e sobrenome</mat-label>
+      <input matInput formControlName="name" placeholder="Digite aqui">
+      <mat-icon matPrefix>person</mat-icon>
+      <mat-hint>Digite seu nome e sobrenome para sabermos quem é você :)</mat-hint>
       <mat-error *ngIf="userInfoForm.get('name')?.errors?.['required']">
-        Nome é obrigatório
+        Esse campo é obrigatório, por favor preencha.
       </mat-error>
     </mat-form-field>
   </form>
 </div>
 
 <mat-card class="upload-card" (click)="isUploading || isPostUpload ? null : fileSelector.click()" [class.disabled]="isUploading || isPostUpload">
-  <h2>Upload de Arquivos</h2>
+  <h2>Upload de fotos e vídeos</h2>
 
-  <ngx-file-drop (onFileDrop)="onFileDropped($event)" [disabled]="isUploading || isPostUpload">
+  <ngx-file-drop (onFileDrop)="onFileDropped($event)" [disabled]="isUploading || isPostUpload" 
+                 dropZoneLabel="Clique aqui ou arraste e solte arquivos"
+                 contentClassName="drop-content"
+                 [multiple]="true">
     <div ngx-file-drop-content [class.disabled-content]="isUploading || isPostUpload">
-      <p>Arraste e solte seus arquivos aqui</p>
+      <p>Clique aqui ou arraste e solte arquivos"</p>
       <p>ou clique para selecionar</p>
       <p class="file-type-hint">Somente fotos e vídeos são aceitos</p>
       <p *ngIf="isUploading || isPostUpload" class="status-message">
@@ -47,12 +52,8 @@
 <!-- Cards com preview -->
 <div class="preview-container">
   <mat-card class="preview-card" *ngFor="let file of uploadedFiles; let i = index" [class.disabled]="isUploading || isPostUpload">
-    <h3>{{ file.name }}</h3>
-    
-    <!-- Status indicator -->
     <div class="status-indicator">
       <mat-icon *ngIf="file.firebaseUrl" color="primary">cloud_done</mat-icon>
-      <mat-icon *ngIf="!file.firebaseUrl">cloud_upload</mat-icon>
       <mat-spinner diameter="20" *ngIf="isUploading && !file.firebaseUrl"></mat-spinner>
     </div>
 

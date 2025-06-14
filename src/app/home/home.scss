@@ -1,8 +1,16 @@
+:host {
+  display: block;
+  background-color: var(--background-color);
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  min-height: 100vh;
 }
 
 .app-header {
@@ -12,10 +20,55 @@
   h1 {
     margin: 0;
     font-size: 1.8rem;
-    color: #3f51b5;
+    color: var(--primary-color);
+    word-wrap: break-word;
   }
 }
 
 mat-divider {
   margin-bottom: 20px;
+  background-color: var(--primary-color);
+  opacity: 0.5;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .container {
+    padding: 8px;
+  }
+  
+  .app-header {
+    padding: 12px 0;
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  ::ng-deep .mat-mdc-tab-header {
+    .mat-mdc-tab-label-container {
+      padding: 0 4px;
+    }
+    
+    .mat-mdc-tab-label {
+      min-width: 72px;
+      padding: 0 12px;
+    }
+  }
+}
+
+::ng-deep .mat-mdc-tab-body-wrapper {
+  background-color: var(--background-color);
+}
+
+::ng-deep .mat-mdc-tab-header {
+  background-color: var(--background-color);
+}
+
+::ng-deep .mat-mdc-tab-label {
+  color: var(--text-on-dark) !important;
+}
+
+::ng-deep .mat-mdc-tab-label.mdc-tab--active {
+  color: var(--card-bg) !important;
 }

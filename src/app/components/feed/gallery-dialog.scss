@@ -1,0 +1,141 @@
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+}
+.gallery-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+img, video {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: #eee;
+}
+.gallery-caption {
+  font-size: 0.9em;
+  color: var(--text-on-light);
+  text-align: center;
+  word-break: break-all;
+}
+.gallery-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.gallery-thumb {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.gallery-thumb:hover {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.feed-thumb {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.feed-thumb:hover {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.media-modal-backdrop {
+  position: fixed;
+  z-index: 1001;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.media-modal {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 24px 24px 16px 24px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.media-modal img, .media-modal video {
+  max-width: 80vw;
+  max-height: 60vh;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: #eee;
+}
+.media-caption {
+  font-size: 1.1em;
+  color: var(--text-on-light);
+  margin-bottom: 10px;
+  text-align: center;
+  word-break: break-all;
+}
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    gap: 10px;
+  }
+  
+  .gallery-item {
+    width: 100%;
+  }
+  
+  img, video {
+    max-height: 120px;
+  }
+  
+  .gallery-caption {
+    font-size: 0.8em;
+  }
+  
+  .media-modal {
+    padding: 16px 16px 12px 16px;
+  }
+  
+  .media-modal img, .media-modal video {
+    max-width: 100%;
+    max-height: 50vh;
+  }
+  
+  .media-caption {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 400px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  img, video {
+    max-height: 200px;
+  }
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  background-color: var(--background-color) !important;
+  border-radius: 10px !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  background-color: var(--background-color) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}

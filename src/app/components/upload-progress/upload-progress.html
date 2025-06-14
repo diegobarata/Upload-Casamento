@@ -7,10 +7,10 @@
 <mat-dialog-content>
   <div class="progress-container">
     <div class="progress-status">
-      <ng-container *ngIf="!data.success && !data.error">
+      <ng-container class="background-gray" *ngIf="!data.success && !data.error">
         <p>Por favor, aguarde enquanto seus arquivos são enviados...</p>
       </ng-container>
-      <ng-container *ngIf="data.success">
+      <ng-container class="background-gray" *ngIf="data.success">
         <mat-icon class="success-icon">check_circle</mat-icon>
         <p>Seus arquivos foram enviados com sucesso!</p>
       </ng-container>
