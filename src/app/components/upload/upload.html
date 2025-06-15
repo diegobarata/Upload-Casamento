@@ -38,15 +38,17 @@
 
 <!-- Botões abaixo do card -->
 <div class="action-buttons" *ngIf="uploadedFiles.length > 0">
-  <button mat-raised-button color="warn" (click)="clearAll()" [disabled]="isUploading || isPostUpload">Limpar Todos</button>
-  <button mat-raised-button color="primary" (click)="sendFiles()" [disabled]="isUploading || isPostUpload">
+  <button mat-stroked-button color="warn" class="clear-all-button" (click)="clearAll()" [disabled]="isUploading || isPostUpload">
+    Limpar Todos
+  </button>
+  <button mat-raised-button class="send-button" (click)="sendFiles()" [disabled]="isUploading || isPostUpload">
     <mat-spinner diameter="20" *ngIf="isUploading"></mat-spinner>
-    <span *ngIf="!isUploading">Enviar para Firebase</span>
-    <span *ngIf="isUploading">Enviando...</span>
+    <span class="white-text" *ngIf="!isUploading">Enviar fotos/vídeos</span>
+    <span class="white-text" *ngIf="isUploading">Enviando...</span>
   </button>
-  <button mat-raised-button color="accent" (click)="testUpload()" [disabled]="isUploading || isPostUpload">
+  <!-- <button mat-raised-button color="accent" (click)="testUpload()" [disabled]="isUploading || isPostUpload">
     Testar Upload
-  </button>
+  </button> -->
 </div>
 
 <!-- Cards com preview -->

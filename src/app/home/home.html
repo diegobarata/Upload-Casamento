@@ -1,15 +1,19 @@
 <div class="container">
   <header class="app-header">
-    <h1>Upload de Fotos e Vídeos do Casamento</h1>
+    <div class="wedding-logo">
+      <img src="assets/logo-casamento.png" alt="Logo Diego e Deuzilene">
+    </div>
+    <h1>Diego & Deuzilene</h1>
+    <p class="wedding-date">Compartilhe os momentos especiais do nosso dia</p>
   </header>
 
   <mat-divider></mat-divider>
 
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-    <mat-tab label="Enviar">
+    <mat-tab label="Enviar Fotos">
       <app-upload (uploadComplete)="onUploadComplete($event)"></app-upload>
     </mat-tab>
-    <mat-tab label="Feed">
+    <mat-tab label="Galeria">
       <app-feed></app-feed>
     </mat-tab>
   </mat-tab-group>

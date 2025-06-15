@@ -20,6 +20,32 @@
   h2 {
     margin: 0;
     color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    position: relative;
+    
+    &:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 2px;
+      background-color: var(--accent-color);
+      margin-top: 5px;
+    }
+  }
+  
+  button.mat-mini-fab,
+  ::ng-deep .mat-mdc-mini-fab {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    
+    &::ng-deep .mat-icon,
+    &::ng-deep .mdc-fab__icon,
+    &::ng-deep span,
+    &::ng-deep mat-icon {
+      color: white !important;
+      fill: white !important;
+    }
   }
 }
 
@@ -148,10 +174,24 @@
 
 .group-card {
   padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   background: var(--card-bg);
+  border: 1px solid var(--romantic-light);
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    opacity: 0.7;
+  }
 }
 
 .group-header {
@@ -160,11 +200,13 @@
   gap: 16px;
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--romantic-light);
 
   h3 {
     margin: 0;
     color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
     flex: 1;
   }
 
@@ -234,8 +276,13 @@
     max-width: 220px;
     max-height: 160px;
     border-radius: 8px;
-    background: #eee;
-    margin-bottom: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 2px solid white;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 }
 

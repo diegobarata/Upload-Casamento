@@ -10,7 +10,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  &:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
 }
+
 img, video {
   width: 100%;
   max-height: 160px;
@@ -18,12 +24,16 @@ img, video {
   border-radius: 6px;
   margin-bottom: 6px;
   background: #eee;
+  border: 2px solid white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .gallery-caption {
   font-size: 0.9em;
   color: var(--text-on-light);
   text-align: center;
   word-break: break-all;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
 }
 .gallery-actions {
   display: flex;
@@ -58,28 +68,47 @@ img, video {
 }
 .media-modal {
   background: var(--card-bg);
-  border-radius: 10px;
-  padding: 24px 24px 16px 24px;
+  border-radius: 12px;
+  padding: 30px 24px 20px 24px;
   max-width: 90vw;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border: 1px solid var(--romantic-light);
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    opacity: 0.7;
+    border-radius: 12px 12px 0 0;
+  }
 }
+
 .media-modal img, .media-modal video {
   max-width: 80vw;
   max-height: 60vh;
   border-radius: 8px;
   margin-bottom: 12px;
   background: #eee;
+  border: 3px solid white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 .media-caption {
   font-size: 1.1em;
   color: var(--text-on-light);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
   word-break: break-all;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
 }
 .close-btn {
   position: absolute;
@@ -131,11 +160,12 @@ img, video {
 
 ::ng-deep .mat-mdc-dialog-container {
   background-color: var(--background-color) !important;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
 }
 
 ::ng-deep .mat-mdc-dialog-surface {
   background-color: var(--background-color) !important;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
   overflow: hidden !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
 }

@@ -59,23 +59,35 @@ html, body {
   }
 }
 
-// Define a paleta de cores personalizada
+// Define a paleta de cores personalizada - mantendo o esquema verde
 :root {
-  --primary-color: #6e7954;
+  --primary-color: #6e7954; // Verde original
   --text-on-dark: #ffffff;
-  --text-on-light: #6e7954;
-  --accent-color: #88956c;
-  --warn-color: #a35738;
-  --success-color: #5a7945;
-  --background-color: #f4f3f6;
+  --text-on-light: #6e7954; // Verde para textos
+  --accent-color: #88956c; // Verde mais claro
+  --warn-color: #a35738; // Coral para alertas
+  --warn-color-rgb: 163, 87, 56; // Adicionando a versão RGB da cor de alerta
+  --success-color: #5a7945; // Verde escuro
+  --background-color: #f4f3f6; // Fundo claro
   --card-bg: #ffffff;
+  --romantic-dark: #5e664d; // Tom mais escuro do verde
+  --romantic-light: #b6bca9; // Creme esverdeado claro
 }
 
 // Estilos globais
 body {
   color: var(--text-on-light);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
   background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-weight: 500;
+  color: var(--primary-color);
 }
 
 // Sobrescrever cores do Angular Material
@@ -105,11 +117,11 @@ body {
 }
 
 .mat-mdc-tab-group.mat-primary .mat-mdc-tab-label.mdc-tab--active .mdc-tab__text-label {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
 }
 
 .mat-mdc-tab .mdc-tab-indicator__content--underline {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color) !important;
 }
 
 .mat-mdc-progress-bar.mat-primary .mdc-linear-progress__bar-inner {
@@ -129,19 +141,6 @@ body {
   background-color: #f44336;
 }
 
-// Estilos globais para campos de formulário
-.mat-mdc-form-field.mat-focused .mat-mdc-input-element {
-  color: var(--primary-color);
-}
-
-.mat-mdc-form-field-subscript-wrapper {
-  padding-left: 8px;
-}
-
-.mat-mdc-form-field-icon-prefix {
-  color: var(--primary-color);
-}
-
 // Override Angular Material form field colors
 .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: var(--primary-color) !important;
@@ -158,3 +157,42 @@ body {
 .mat-input-element {
   caret-color: var(--primary-color) !important;
 }
+
+// Estilo romântico para cards
+.mat-mdc-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+  }
+}
+
+// Estilo para botões
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-stroked-button {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.mat-mdc-stroked-button.mat-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+// Estilo global para botões mini-fab
+.mat-mdc-mini-fab {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.mat-mdc-mini-fab .mat-icon,
+.mat-mdc-mini-fab .mdc-fab__icon {
+  color: white !important;
+  fill: white !important;
+}
+
+// Adicione fontes elegantes para casamento
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
