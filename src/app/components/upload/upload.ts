@@ -313,6 +313,9 @@ export class Upload {
           { duration: 5000, panelClass: ['success-snackbar'] }
         );
         
+        // Emit upload complete event
+        this.uploadComplete.emit(true);
+        
         // Set post-upload flag before timeout
         this.isPostUpload = true;
         
@@ -329,6 +332,9 @@ export class Upload {
         progressData.error = true;
         this.updateProgressDialog(progressData);
         
+        // Partial success - still emit success to refresh feed
+        this.uploadComplete.emit(true);
+        
         // Partial success
         this.snackBar.open(
           `Upload parcial: ${successCount} ok, ${errorCount} com erro.`,
@@ -342,6 +348,9 @@ export class Upload {
         // Update dialog to show error
         progressData.error = true;
         this.updateProgressDialog(progressData);
+        
+        // Complete failure - don't emit success
+        this.uploadComplete.emit(false);
         
         // Complete failure
         this.snackBar.open(
@@ -364,6 +373,9 @@ export class Upload {
         'Fechar',
         { duration: 5000, panelClass: ['error-snackbar'] }
       );
+      
+      // Emit failure
+      this.uploadComplete.emit(false);
       
       // Re-enable form on error
       this.userInfoForm.enable();

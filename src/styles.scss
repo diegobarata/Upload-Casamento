@@ -59,19 +59,45 @@ html, body {
   }
 }
 
-// Define a paleta de cores personalizada - mantendo o esquema verde
+/* Modern Design System for Wedding Photo Upload */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* CSS Reset and Base Styles */
+
+/* Design System Variables */
 :root {
-  --primary-color: #6e7954; // Verde original
+  /* Colors - Modern & Elegant with #055241 */
+  --primary-50: #f0f9f6;
+  --primary-100: #639388;
+  --primary-200: #b3e5d1;
+  --primary-300: #8dd8ba;
+  --primary-400: #67cba3;
+  --primary-500: #41be8c;
+  --primary-600: #055241;
+  --primary-700: #044235;
+  --primary-800: #033229;
+  --primary-900: #02221c;
+
+  /* Legacy variables for backward compatibility */
+  --primary-color: #055241;
   --text-on-dark: #ffffff;
-  --text-on-light: #6e7954; // Verde para textos
-  --accent-color: #88956c; // Verde mais claro
-  --warn-color: #a35738; // Coral para alertas
-  --warn-color-rgb: 163, 87, 56; // Adicionando a versão RGB da cor de alerta
-  --success-color: #5a7945; // Verde escuro
-  --background-color: #f4f3f6; // Fundo claro
+  --text-on-light: #055241;
+  --accent-color: #41be8c;
+  --warn-color: #a35738;
+  --warn-color-rgb: 163, 87, 56;
+  --success-color: #044235;
+  --background-color: #f4f3f6;
   --card-bg: #ffffff;
-  --romantic-dark: #5e664d; // Tom mais escuro do verde
-  --romantic-light: #b6bca9; // Creme esverdeado claro
+  --romantic-dark: #033229;
+  --romantic-light: #639388;
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #055241;
+
+  // ...existing code...
 }
 
 // Estilos globais
@@ -184,14 +210,61 @@ h1, h2, h3, h4, h5 {
 
 // Estilo global para botões mini-fab
 .mat-mdc-mini-fab {
-  background-color: var(--primary-color) !important;
+  background-color: #055241 !important;
   color: white !important;
+  box-shadow: var(--shadow-lg) !important;
+  
+  &:hover {
+    background-color: var(--primary-700) !important;
+    transform: scale(1.05);
+  }
 }
 
 .mat-mdc-mini-fab .mat-icon,
 .mat-mdc-mini-fab .mdc-fab__icon {
   color: white !important;
   fill: white !important;
+}
+
+// Toolbar overrides
+.mat-toolbar.mat-primary {
+  background-color: var(--primary-color);
+  color: var(--text-on-dark);
+}
+
+// Tab overrides
+.mat-mdc-tab .mat-mdc-tab-label-content {
+  color: var(--text-on-light);
+}
+
+.mat-mdc-tab-group.mat-primary .mat-mdc-tab-label.mdc-tab--active .mdc-tab__text-label {
+  color: var(--primary-color) !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: var(--primary-color) !important;
+}
+
+// Form field overrides
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-input-element {
+  caret-color: var(--primary-color) !important;
+}
+
+.mat-mdc-stroked-button.mat-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 // Adicione fontes elegantes para casamento

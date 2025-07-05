@@ -70,17 +70,14 @@ mat-divider {
   }
 }
 
-/* Este seletor específico garante que o texto seja branco */
 ::ng-deep .mat-mdc-tab .mdc-tab__text-label {
   color: white !important;
 }
 
-/* Este seletor garante que o texto permaneça branco quando a tab está ativa */
 ::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
   color: white !important;
 }
 
-/* Garantir que o indicador da aba ativa também seja branco */
 ::ng-deep .mat-mdc-tab-header .mat-mdc-tab-header-pagination-chevron,
 ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
   border-color: white !important;
@@ -102,17 +99,6 @@ mat-divider {
   mat-label {
     color: var(--primary-color);
   }
-}
-
-.decorative-letter {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  color: var(--primary-color);
-  text-align: center;
-  font-style: italic;
-  opacity: 0.5;
-  margin: 30px 0 10px 0;
-  font-weight: 500;
 }
 
 /* Responsividade */
@@ -146,10 +132,5 @@ mat-divider {
       min-width: 72px;
       padding: 0 12px;
     }
-  }
-  
-  .decorative-letter {
-    font-size: 2rem;
-    margin: 20px 0 5px 0;
   }
 }

@@ -19,17 +19,10 @@ export class Home {
    */
   onUploadComplete(success: boolean): void {
     if (success) {
-      // Switch to the feed tab
+      // Refresh the feed without switching tabs
       setTimeout(() => {
-        if (this.tabGroup) {
-          this.tabGroup.selectedIndex = 1;
-
-          // Refresh the feed
-          setTimeout(() => {
-            if (this.feedComponent) {
-              this.feedComponent.loadFeedItems();
-            }
-          }, 500);
+        if (this.feedComponent) {
+          this.feedComponent.loadFeedItems();
         }
       }, 1000);
     }

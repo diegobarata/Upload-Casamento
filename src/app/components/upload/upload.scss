@@ -344,6 +344,72 @@
   }
 }
 
+.upload-content {
+  max-width: 400px;
+  
+  .upload-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-4);
+    color: var(--primary-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-100);
+    border-radius: 50%;
+  }
+  
+  .status-message {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    
+    &.uploading {
+      background: var(--primary-50);
+      color: var(--primary-700);
+      border: 1px solid var(--primary-200);
+    }
+  }
+}
+
+.upload-zone {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  border: 2px dashed var(--gray-300);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  &:hover:not(.disabled) {
+    border-color: var(--primary-400);
+    background: var(--primary-50);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &.drag-over {
+    border-color: var(--primary-600);
+    background: var(--primary-100);
+    transform: scale(1.02);
+  }
+}
+
+.upload-button {
+  flex: 1;
+  min-height: 48px;
+  font-weight: 600;
+  position: relative;
+  background-color: #055241 !important;
+}
+
 @media (max-width: 600px) {
   .upload-card {
     margin: 10px;
@@ -388,4 +454,21 @@
   .action-buttons button {
     flex: 1 0 100%;
   }
+}
+
+// Override Angular Material form field colors
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-input-element {
+  caret-color: var(--primary-color) !important;
 }
